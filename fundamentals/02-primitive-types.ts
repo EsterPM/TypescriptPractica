@@ -21,3 +21,17 @@ printCourse(title, subtitle, lessonsCount);
 function printCourse(title:string, subtitle:string, lesssonsCount:number) {
     let fullTitle = title + subtitle;
 }
+
+
+//Objets
+const course = {
+    title: "Typescript Bootcamp",
+    subtitle: "Learn...",
+    lessonsCount: 10,
+    author: {
+        firstName: "Piru",
+        lastName: "Bit"
+    }
+};
+
+console.log("type of course is " + typeof course);
