@@ -5,7 +5,7 @@ let courseStatus: CourseStatus = "draft";
 let newStatus: CourseStatus = "published";
 
 
-//Amb objecte perque no hi pugui haber error de tipus. 
+//Es millor fer servir interface amb objectes
 type Course = {
     title:string,
     subtitle:string,
