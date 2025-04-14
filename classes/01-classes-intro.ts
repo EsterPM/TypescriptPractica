@@ -1,13 +1,19 @@
-class Course {
+
+//No pots crear objectes de la classe abstracta per si sola
+
+abstract class Course {
 
     //variables compartida entre totes les instàncies.
     private static TOTAL_COURSES = 0;
+    
     //Constant
     static readonly TYPESCRIPT_TITLE = "Typescript Bootcamp"; //No es pot modificar
 
     //Es poden definir les propietats directament dins el constructor.
-    constructor(
+    protected constructor(
+        
         public id:string,
+        
         //Al constructor no pots fer servir title perquè entraria en conflicte amb el set.
         protected _title:string,
         
@@ -63,9 +69,12 @@ class Course {
     }
 
     //Amb protected pots cridar la funció des de la mateixa classe o des dels fills, però no des de fora.
-    protected validate() {
+    /*protected validate() {
         console.log(`Called Course validate()`);
-    }
+    }*/
+
+    //mètode sense implementació (abstract) que han de ser implementats per les subclasses
+    protected abstract validate();
 }
 
 
@@ -90,7 +99,7 @@ class FreeCourse extends Course {
 
 }
 
-
+//---No es pot instanciar una classe abstracta---
 //const typescript = new Course(Course.TYPESCRIPT_TITLE, 100);
 //console.log(typescript.title);
 
