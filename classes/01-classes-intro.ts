@@ -20,6 +20,7 @@ class Course {
         //Al definir-les al constructor no és necesari this.id
         //Les inicialitza amb el valor que rep com a parametre. 
 
+        this.validate();
         Course.TOTAL_COURSES++;
     }
 
@@ -55,10 +56,38 @@ class Course {
     static printTitle(course: Course) {
         console.log(`The title of the course ${course.title}`)
     }
+
+    validate() {
+        console.log(`Called Course validate()`);
+    }
+}
+
+
+//Classe fill (o subclasse) hereta les propietats i mètodes de classe pare. 
+//Això permet reutilitzar codi i afegir més funcionalitats a la classe fill sense haver de duplicar tot el codi de la classe pare.
+class FreeCourse extends Course {
+
+    constructor( id:string,
+                 title:string,
+                 subtitle = "",
+                 creationDt = new Date(2000,1,1)) {
+
+        //Cridem al constructor de la classe pare
+        super(id, title, 0, subtitle, creationDt);
+
+    }
+
+    //Nou mètode de la classe fill que sobre posa al de la classe pare.
+    validate() {
+        console.log(`Called FreeCourse validate()`);
+    }
+
 }
 
 
 //const typescript = new Course(Course.TYPESCRIPT_TITLE, 100);
-
 //console.log(typescript.title);
 
+
+const angular = new FreeCourse("1", "Angular For Beginners");
+console.log(angular);
