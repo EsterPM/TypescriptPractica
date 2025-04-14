@@ -1,4 +1,5 @@
 import {HasId, HasTitle} from "./02-interfaces";
+import {CoursesService} from "./03-singleton";
 
 //No pots crear objectes de la classe abstracta per si sola
 
@@ -35,6 +36,9 @@ abstract class Course implements HasTitle {
 
         this.validate();
         Course.TOTAL_COURSES++;
+
+        //Iniciar el service per utilitzar despres
+        const service = CoursesService.instance();
     }
 
     /* No pots fer this.title = ... dins del set title(...), 
@@ -114,3 +118,6 @@ class FreeCourse extends Course {
 
 const angular = new FreeCourse("1", "Angular For Beginners");
 console.log(angular);
+
+//Es pot fer servir fora de les classes tambe:
+CoursesService.instance();
