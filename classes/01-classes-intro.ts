@@ -1,7 +1,8 @@
+import {HasId, HasTitle} from "./02-interfaces";
 
 //No pots crear objectes de la classe abstracta per si sola
 
-abstract class Course {
+abstract class Course implements HasTitle {
 
     //variables compartida entre totes les instàncies.
     private static TOTAL_COURSES = 0;
@@ -11,10 +12,11 @@ abstract class Course {
 
     //Es poden definir les propietats directament dins el constructor.
     protected constructor(
-        
+        //Al venir de la interface ha de ser public
         public id:string,
         
         //Al constructor no pots fer servir title perquè entraria en conflicte amb el set.
+        //No dona error amb protected perque no es title sino _title i tens el get i set que ja te title
         protected _title:string,
         
         //protected només poden ser accedides dins de la mateixa classe o en les subclasses.
@@ -75,6 +77,12 @@ abstract class Course {
 
     //mètode sense implementació (abstract) que han de ser implementats per les subclasses
     protected abstract validate();
+
+    
+    //Obligatori perque ve de la interface. Ha de ser public
+    printId() {
+        console.log(`The course id is ${this.id}`);
+    }
 }
 
 
