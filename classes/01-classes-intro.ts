@@ -9,12 +9,17 @@ class Course {
     constructor(
         public id:string,
         //Al constructor no pots fer servir title perquè entraria en conflicte amb el set.
-        private _title:string,
-        private price:number,
+        protected _title:string,
+        
+        //protected només poden ser accedides dins de la mateixa classe o en les subclasses.
+        //Amb private el fill no pot accedir.
+        protected price:number,
+        
         //Al assignar un valor pots crear un nou objete sense pasar aquest paramentres
         //Es com si tinguesis mes d'un constructor en 1 (en ts no es pot tenir + 1)
-        private subtitle = "",
-        private creationDt = new Date(2000,1,1)
+        protected subtitle = "",
+        protected creationDt = new Date(2000,1,1)
+        
         // private readonly title:string ---> no es pot modificar ni dins ni fora de la class. 
     ) {
         //Al definir-les al constructor no és necesari this.id
@@ -57,7 +62,8 @@ class Course {
         console.log(`The title of the course ${course.title}`)
     }
 
-    validate() {
+    //Amb protected pots cridar la funció des de la mateixa classe o des dels fills, però no des de fora.
+    protected validate() {
         console.log(`Called Course validate()`);
     }
 }
@@ -78,7 +84,7 @@ class FreeCourse extends Course {
     }
 
     //Nou mètode de la classe fill que sobre posa al de la classe pare.
-    validate() {
+    protected validate() {
         console.log(`Called FreeCourse validate()`);
     }
 
