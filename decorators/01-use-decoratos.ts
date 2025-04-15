@@ -1,7 +1,8 @@
 import {Log, LoggingLevel, Perf} from "./02-method-decorator";
-//import {SealClass} from "./03-class-decorator";
+import {SealClass} from "./03-class-decorator";
 //import {DatabaseId} from "./04-property-decorators";
 
+//03
 @SealClass
 class DbService {
 
