@@ -1,12 +1,13 @@
 import {Log, LoggingLevel, Perf} from "./02-method-decorator";
 import {SealClass} from "./03-class-decorator";
-//import {DatabaseId} from "./04-property-decorators";
+import {DatabaseId} from "./04-property-decorators";
 
 //03
 @SealClass
 class DbService {
 
     //Els dos a 02-method-decorator
+    //S'apliquen en ordre invers a com estan escrits (el més proper al mètode s'executa primer).
     @Perf()
     @Log(LoggingLevel.INFO)
     saveData(data:any) {
@@ -34,6 +35,7 @@ Object.defineProperty(DbService, "sayHello",{
 
 class Course {
 
+    //04
     @DatabaseId()
     id:string;
 
@@ -50,12 +52,11 @@ class Course {
 }
 
 const course1 = new Course("Typescript Bootcamp");
-
-console.log(`Course 1 id: `, course1.id);
+console.log(`Course 1 id: `, course1.id); // id únic generat
 
 const course2 = new Course("Angular Core In Depth");
+console.log(`Course 2 id: `, course2.id); // un altre id únic
 
-console.log(`Course 2 id: `, course2.id);
 
 console.log("Course 1", course1);
 
