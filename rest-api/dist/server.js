@@ -13,6 +13,7 @@ console.log(process.env.PORT);
 var express = require("express");
 var root_1 = require("./routes/root");
 var utils_1 = require("./utils");
+var logger_1 = require("./logger");
 //Aquesta constant app representa el nostre servidor web.
 var app = express();
 //configurar les rutes del servidor
@@ -39,7 +40,7 @@ function startServer() {
         port = 9000;
     }
     app.listen(port, function () {
-        console.log("HTTP REST API Server is now running at http://localhost:".concat(port));
+        logger_1.logger.info("HTTP REST API Server is now running at http://localhost:".concat(port));
     });
 }
 setupExpress();

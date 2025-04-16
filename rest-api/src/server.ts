@@ -15,6 +15,7 @@ console.log(process.env.PORT)
 import * as express from 'express';
 import {root} from "./routes/root";
 import {isInteger} from "./utils";
+import {logger} from "./logger";
 
 //Aquesta constant app representa el nostre servidor web.
 const app = express();
@@ -54,7 +55,7 @@ function startServer() {
     }
 
     app.listen(port, () => {
-        console.log(`HTTP REST API Server is now running at http://localhost:${port}`);
+        logger.info(`HTTP REST API Server is now running at http://localhost:${port}`);
     });
 }
 
