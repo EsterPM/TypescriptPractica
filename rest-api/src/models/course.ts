@@ -2,6 +2,7 @@ import {
     Column, CreateDateColumn, Entity, OneToMany,
     PrimaryGeneratedColumn, UpdateDateColumn
 } from "typeorm";
+import {Lesson} from "./lesson";
 
 
 //Declara que aquesta classe representa una taula a la base de dades.
@@ -31,6 +32,10 @@ export class Course {
 
     @Column()
     category: string;
+
+    //un curs té moltes lliçons
+    @OneToMany(() => Lesson, lesson => lesson.course)
+    lessons: Lesson[];
 
     //guarda automàticament la data de creació de la fila
     @CreateDateColumn()
