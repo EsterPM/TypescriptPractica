@@ -18,6 +18,7 @@ import {root} from "./routes/root";
 import {isInteger} from "./utils";
 import {logger} from "./logger";
 import {AppDataSource} from "./data-source";
+import {getAllCourses} from "./routes/get-all-courses";
 
 //Aquesta constant app representa el nostre servidor web.
 const app = express();
@@ -27,6 +28,9 @@ function setupExpress() {
 
     //pàgina principal
     app.route("/").get(root);
+
+    //recuperar tots els cursos de la base de dades.
+    app.route("/api/courses").get(getAllCourses);
 }
 
 //iniciar el servidor i escoltar peticions.
