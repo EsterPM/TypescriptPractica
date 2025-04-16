@@ -1,4 +1,6 @@
 import {DataSource} from "typeorm";
+import { Course } from "./models/course";
+import { Lesson } from "./models/lesson";
 
 
 //nova instància de connexió de TypeORM amb PostgreSQL
@@ -16,7 +18,8 @@ export const AppDataSource = new DataSource({
         }
       },
     entities: [
-
+        Course,
+        Lesson
     ],
     synchronize: true, //Això fa que TypeORM creï o actualitzi automàticament les taules en base a les entitats.
     logging:true //Mostra els logs de les operacions a consola
