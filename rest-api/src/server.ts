@@ -1,3 +1,17 @@
+//serveix per llegir variables d'entorn des d'un fitxer .env
+import * as dotenv from "dotenv";
+
+//Amb dotenv.config() pots accedir a aquestes variables a través de process.env.PORT
+const result = dotenv.config();
+
+if (result.error) {
+    console.log(`Error loading environment variables, aborting.`);
+    //para l'execució del programa
+    process.exit(1);
+}
+
+console.log(process.env.PORT)
+
 import * as express from 'express';
 import {root} from "./routes/root";
 import {isInteger} from "./utils";

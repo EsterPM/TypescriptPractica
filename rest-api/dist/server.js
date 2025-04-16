@@ -1,5 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+//serveix per llegir variables d'entorn des d'un fitxer .env
+var dotenv = require("dotenv");
+//Amb dotenv.config() pots accedir a aquestes variables a través de process.env.PORT
+var result = dotenv.config();
+if (result.error) {
+    console.log("Error loading environment variables, aborting.");
+    //para l'execució del programa
+    process.exit(1);
+}
+console.log(process.env.PORT);
 var express = require("express");
 var root_1 = require("./routes/root");
 var utils_1 = require("./utils");
