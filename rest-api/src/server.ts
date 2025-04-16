@@ -31,13 +31,22 @@ function startServer() {
 
     let port: number;
 
+    //Port desde l'arxiu .env
+    const portEnv = process.env.PORT,
     //conté els arguments passats des de la línia de comandes quan s'executa el script.
-    const portArg = process.argv[2];
+            portArg = process.argv[2];
 
-    //Funció de utils.ts
-    if (isInteger(portArg)) {
+    
+    //inInteger funció de utils.ts
+    if (isInteger(portEnv)) {
+        port = parseInt(portEnv);
+    }
+    
+
+    if (!port && isInteger(portArg)) {
         port = parseInt(portArg);
     }
+    
 
     //Si port no s'ha definit, es farà servir el port per defecte
     if (!port) {

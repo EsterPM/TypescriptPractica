@@ -23,10 +23,15 @@ function setupExpress() {
 //iniciar el servidor i escoltar peticions.
 function startServer() {
     var port;
+    //Port desde l'arxiu .env
+    var portEnv = process.env.PORT, 
     //conté els arguments passats des de la línia de comandes quan s'executa el script.
-    var portArg = process.argv[2];
-    //Funció de utils.ts
-    if ((0, utils_1.isInteger)(portArg)) {
+    portArg = process.argv[2];
+    //inInteger funció de utils.ts
+    if ((0, utils_1.isInteger)(portEnv)) {
+        port = parseInt(portEnv);
+    }
+    if (!port && (0, utils_1.isInteger)(portArg)) {
         port = parseInt(portArg);
     }
     //Si port no s'ha definit, es farà servir el port per defecte
