@@ -14,6 +14,7 @@ var express = require("express");
 var root_1 = require("./routes/root");
 var utils_1 = require("./utils");
 var logger_1 = require("./logger");
+var data_source_1 = require("./data-source");
 //Aquesta constant app representa el nostre servidor web.
 var app = express();
 //configurar les rutes del servidor
@@ -43,5 +44,16 @@ function startServer() {
         logger_1.logger.info("HTTP REST API Server is now running at http://localhost:".concat(port));
     });
 }
-setupExpress();
-startServer();
+//iniciar la connexió amb la base de dades
+data_source_1.AppDataSource.initialize()
+    //Si la connexió s'estableix correctament
+    .then(function () {
+    logger_1.logger.info("The datasource has been initialized successfully.");
+    setupExpress();
+    startServer();
+})
+    //Si hi ha algun error amb la connexió
+    .catch(function (err) {
+    logger_1.logger.error("Error during datasource initialization.", err);
+    process.exit(1);
+});

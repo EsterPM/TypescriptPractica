@@ -16,6 +16,7 @@ import * as express from 'express';
 import {root} from "./routes/root";
 import {isInteger} from "./utils";
 import {logger} from "./logger";
+import {AppDataSource} from "./data-source";
 
 //Aquesta constant app representa el nostre servidor web.
 const app = express();
@@ -59,5 +60,16 @@ function startServer() {
     });
 }
 
-setupExpress();
-startServer();
+//iniciar la connexió amb la base de dades
+AppDataSource.initialize()
+    //Si la connexió s'estableix correctament
+    .then(() => {
+        logger.info(`The datasource has been initialized successfully.`);
+        setupExpress();
+        startServer();
+    })
+    //Si hi ha algun error amb la connexió
+    .catch(err => {
+        logger.error(`Error during datasource initialization.`, err);
+        process.exit(1);
+    })
