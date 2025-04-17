@@ -5,12 +5,14 @@ const result = dotenv.config();
 import "reflect-metadata";
 
 //dades de prova
-import {COURSES} from "./db-data";
-import {AppDataSource} from "../data-source";
+import { COURSES, USERS } from "./db-data";
+import { AppDataSource } from "../data-source";
 import { Course } from "./course";
 //permet crear un objecte amb totes les propietats opcionals d'una entitat.
-import {DeepPartial} from "typeorm";
-import {Lesson} from "./lesson";
+import { DeepPartial } from "typeorm";
+import { Lesson } from "./lesson";
+import { User } from "./user";
+import { calculatePasswordHash } from "../utils";
 
 
 async function populateDb() {
@@ -45,6 +47,32 @@ async function populateDb() {
 
             await lessonsRepository.save(lesson);
         }
+
+    }
+
+    //Agafo tots els valors de l'objecte i els converteixo en un array.
+    const users = Object.values(USERS) as any[];
+
+    for (let userData of users) {
+
+        console.log(`Inserting user: ${userData}`);
+
+        const { email, pictureUrl, isAdmin, passwordSalt, plainTextPassword } = userData;
+
+        //Crea un nou usuari
+        const user = AppDataSource
+            .getRepository(User)
+            .create({
+                email,
+                pictureUrl,
+                isAdmin,
+                passwordSalt,
+                passwordHash: await calculatePasswordHash(
+                    plainTextPassword, passwordSalt)
+            });
+
+        //Guarda usuari a la base de dades.
+        await AppDataSource.manager.save(user);
 
     }
 
