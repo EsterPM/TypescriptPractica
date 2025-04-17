@@ -21,11 +21,16 @@ import {AppDataSource} from "./data-source";
 import {getAllCourses} from "./routes/get-all-courses";
 import {defaultErrorHandler} from "./middlewares/default-error-handler";
 
+//permet que el teu frontend pugui fer peticions HTTP (com GET, POST, etc.) al teu backend sense que el navegador bloquegi la sol·licitud.
+const cors = require("cors");
+
 //Aquesta constant app representa el nostre servidor web.
 const app = express();
 
 //configurar les rutes del servidor
 function setupExpress() {
+
+    app.use(cors({origin:true})); // <- posar abans de definir rutes
 
     //pàgina principal
     app.route("/").get(root);
