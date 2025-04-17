@@ -22,9 +22,14 @@ import {getAllCourses} from "./routes/get-all-courses";
 import {defaultErrorHandler} from "./middlewares/default-error-handler";
 import {findCourseByUrl} from "./routes/find-course-by-url";
 import {findLessonsForCourse} from "./routes/find-lessons-for-course";
+import {updateCourse} from "./routes/update-course";
 
 //permet que el teu frontend pugui fer peticions HTTP (com GET, POST, etc.) al teu backend sense que el navegador bloquegi la sol·licitud.
 const cors = require("cors");
+
+//s'utilitza per analitzar el cos de les peticions HTTP i convertir-lo en un format que sigui fàcil de treballar per l'aplicació.
+//Ara ja ve integrat amb express
+const bodyParser = require("body-parser");
 
 //Aquesta constant app representa el nostre servidor web.
 const app = express();
@@ -33,6 +38,9 @@ const app = express();
 function setupExpress() {
 
     app.use(cors({origin:true})); // <- posar abans de definir rutes
+
+    //Analitza el cos de les peticions en format JSON
+    app.use(bodyParser.json()); 
 
     //pàgina principal
     app.route("/").get(root);
@@ -45,6 +53,9 @@ function setupExpress() {
 
     //obtenir les lliçons d'un curs
     app.route("/api/courses/:courseId/lessons").get(findLessonsForCourse);
+
+
+    app.route("/api/courses/:courseId").patch(updateCourse);
 
     app.use(defaultErrorHandler); // <- molt important que estigui al final!
 }
