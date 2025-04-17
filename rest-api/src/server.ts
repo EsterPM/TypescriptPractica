@@ -20,6 +20,7 @@ import {logger} from "./logger";
 import {AppDataSource} from "./data-source";
 import {getAllCourses} from "./routes/get-all-courses";
 import {defaultErrorHandler} from "./middlewares/default-error-handler";
+import {findCourseByUrl} from "./routes/find-course-by-url";
 
 //permet que el teu frontend pugui fer peticions HTTP (com GET, POST, etc.) al teu backend sense que el navegador bloquegi la sol·licitud.
 const cors = require("cors");
@@ -38,7 +39,8 @@ function setupExpress() {
     //recuperar tots els cursos de la base de dades.
     app.route("/api/courses").get(getAllCourses);
 
-
+    //buscar un curs concret a la base de dades segons la seva URL.
+    app.route("/api/courses/:courseUrl").get(findCourseByUrl);
 
     app.use(defaultErrorHandler); // <- molt important que estigui al final!
 }
