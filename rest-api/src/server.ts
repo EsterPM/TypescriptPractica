@@ -27,6 +27,7 @@ import {createCourse} from "./routes/create-course";
 import {deleteCourseAndLessons} from "./routes/delete-course";
 import {createUser} from "./routes/create-user";
 import {login} from "./routes/login";
+import {checkIfAuthenticated} from "./middlewares/authentication-middleware";
 
 //permet que el teu frontend pugui fer peticions HTTP (com GET, POST, etc.) al teu backend sense que el navegador bloquegi la sol·licitud.
 const cors = require("cors");
@@ -50,21 +51,21 @@ function setupExpress() {
     app.route("/").get(root);
 
     //recuperar tots els cursos de la base de dades.
-    app.route("/api/courses").get(getAllCourses);
+    app.route("/api/courses").get(checkIfAuthenticated, getAllCourses);
 
     //buscar un curs concret a la base de dades segons la seva URL.
-    app.route("/api/courses/:courseUrl").get(findCourseByUrl);
+    app.route("/api/courses/:courseUrl").get(checkIfAuthenticated, findCourseByUrl);
 
     //obtenir les lliçons d'un curs
-    app.route("/api/courses/:courseId/lessons").get(findLessonsForCourse);
+    app.route("/api/courses/:courseId/lessons").get(checkIfAuthenticated, findLessonsForCourse);
 
-    app.route("/api/courses/:courseId").patch(updateCourse);
+    app.route("/api/courses/:courseId").patch(checkIfAuthenticated, updateCourse);
 
-    app.route("/api/courses").post(createCourse);
+    app.route("/api/courses").post(checkIfAuthenticated, createCourse);
 
-    app.route("/api/courses/:courseId").delete(deleteCourseAndLessons);
+    app.route("/api/courses/:courseId").delete(checkIfAuthenticated, deleteCourseAndLessons);
 
-    app.route("/api/users").post(createUser);
+    app.route("/api/users").post(checkIfAuthenticated, createUser);
 
     app.route("/api/login").post(login);
 
